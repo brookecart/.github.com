@@ -16,12 +16,12 @@
     <script>
       // asks the user if they like breakfast or dinner
       // then asks them to list 3 favorite breakfast foods and adds them to the page
-      
+
       function badChoice(choice) {
-        if (choice != ("breakfast" || "dinner")) {
-          return true;
-        } else {
+        if ((choice == "breakfast") || (choice == "dinner")) {
           return false;
+        } else {
+          return true;
         }
       }
 
@@ -45,6 +45,10 @@
         for (var i = 0; i < 3; i++) {
           var item = document.createElement('li');
           foods[i] = prompt(`Tell me your #${i+1} favorite ${choice} food:`, "");
+          while (foods[i] == (null || "")) {
+            alert("I don't think that's a food! Please try again.");
+            foods[i] = prompt(`Tell me your #${i+1} favorite ${choice} food:`, "");
+          }
           var food = document.createTextNode(`${foods[i]}`);
           item.appendChild(food);
           list.appendChild(item);
