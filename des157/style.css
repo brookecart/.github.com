@@ -161,7 +161,6 @@ li {
 /* footer */
 footer {
   width: 1200px;
-  position: absolute;
   bottom: 0;
   display: flex;
   justify-content: flex-end;
