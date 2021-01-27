@@ -49,6 +49,10 @@ p, a {
   line-height: 130%;
 }
 
+article {
+  padding-bottom: 75px;
+}
+
 .graphic {
   position: relative;
 }

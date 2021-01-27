@@ -1,0 +1,118 @@
+body {
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #eceef0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+}
+
+main {
+  width: 700px;
+  margin: 50px auto 150px auto;
+}
+
+h1 {
+  font-family: 'Karla', sans-serif;
+  font-weight: 800;
+  font-size: 5em;
+  text-align: center;
+  color: #1b3b46;
+  margin: 15px 0 30px 0;
+}
+
+p, a {
+  font-family: 'Karla', sans-serif;
+  font-weight: 400;
+  font-size: 1.4em;
+  color: #1b3b46;
+  line-height: 130%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+#inputArea {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  background-color: white;
+  box-shadow: inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+  margin-bottom: 25px;
+  border-radius: 0.15em;
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 30px 30px 10px 30px;
+  font-family: 'Karla', sans-serif;
+  font-weight: 800;
+  text-align: center;
+  font-size: 5em;
+  border-width: 0 0 4px 0;
+}
+
+input:focus, textarea:focus {
+  border-width: 0 0 4px 0;
+  outline: none;
+}
+
+label {
+  text-align: center;
+  font-size: 2em;
+  font-family: 'Karla', sans-serif;
+  font-weight: 600;
+  color: grey;
+  text-transform: uppercase;
+  padding: 20px 0;
+}
+
+#button {
+  padding: 0.7em 3em;
+  box-sizing: border-box;
+  text-decoration: none;
+  border-radius: 0.15em;
+  font-size: 1.5em;
+  color: white;
+  /* box-shadow: inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17); */
+  box-shadow: 0 7px 0 0 #1e4dd4;
+  background-color:#3369ff;
+  border: 0;
+}
+
+#button:hover {
+  cursor: pointer;
+}
+
+#button:active {
+  background-color: #1e4dd4;
+  box-shadow: 0 -7px 0 0 #052c9c;
+  margin-top: 3px;
+}
+
+/* footer */
+footer {
+  width: 1200px;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px 0;
+}
+
+footer a {
+  margin-left: 30px;
+  text-decoration: none;
+}
