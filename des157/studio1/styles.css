@@ -2,7 +2,7 @@ body {
   width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  background-color: #eceef0;
+  background-color: #182039;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,15 +18,15 @@ header {
 
 main {
   width: 700px;
-  margin: 50px auto 150px auto;
+  margin: 50px auto 50px auto;
 }
 
 h1 {
   font-family: 'Karla', sans-serif;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 5em;
   text-align: center;
-  color: #1b3b46;
+  color: white;
   margin: 15px 0 30px 0;
 }
 
@@ -34,7 +34,7 @@ p, a {
   font-family: 'Karla', sans-serif;
   font-weight: 400;
   font-size: 1.4em;
-  color: #1b3b46;
+  color: white;
   line-height: 130%;
 }
 
@@ -47,21 +47,24 @@ form {
   display: flex;
   flex-direction: column;
   padding: 30px;
-  background-color: white;
-  box-shadow: inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
+  background-color: #212B4E;
+  box-shadow: 0 10px 0 0 #181c2d;
   margin-bottom: 25px;
   border-radius: 0.15em;
 }
 
-input {
+input, #formButton, #startButton {
   box-sizing: border-box;
   width: 100%;
   padding: 30px 30px 10px 30px;
   font-family: 'Karla', sans-serif;
-  font-weight: 800;
+  font-weight: 700;
   text-align: center;
   font-size: 5em;
   border-width: 0 0 4px 0;
+  background-color: transparent;
+  border-color: #6375B5;
+  color: white;
 }
 
 input:focus, textarea:focus {
@@ -74,32 +77,52 @@ label {
   font-size: 2em;
   font-family: 'Karla', sans-serif;
   font-weight: 600;
-  color: grey;
+  color: #6375B5;
   text-transform: uppercase;
   padding: 20px 0;
 }
 
-#button {
+#formButton, #startButton {
   padding: 0.7em 3em;
   box-sizing: border-box;
   text-decoration: none;
   border-radius: 0.15em;
   font-size: 1.5em;
   color: white;
-  /* box-shadow: inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17); */
-  box-shadow: 0 7px 0 0 #1e4dd4;
-  background-color:#3369ff;
+  box-shadow: 0 7px 0 0 #4D00B8;
+  background-color:#6200EA;
   border: 0;
+  outline: none;
 }
 
-#button:hover {
+#formButton:hover, #startButton:hover {
   cursor: pointer;
 }
 
-#button:active {
-  background-color: #1e4dd4;
-  box-shadow: 0 -7px 0 0 #052c9c;
+#formButton:active, #startButton:active {
+  background-color: #4D00B8;
+  box-shadow: 0 -7px 0 0 #33007A;
   margin-top: 3px;
+  outline: none;
+}
+
+#madLibOut {
+  line-height: 250%;
+  font-weight: 700;
+  font-size: 1.9em;
+}
+
+.libWord {
+  font-size: 1.1em;
+  background-color: #6200EA;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+#image {
+  background-image: url('images/studiolights-min.png');
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
 }
 
 /* footer */
