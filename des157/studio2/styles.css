@@ -1,3 +1,9 @@
+/* general */
+html, body {
+  height: 100vh;
+  overflow: hidden;
+}
+
 body {
   width: 1200px;
   margin-left: auto;
@@ -16,34 +22,16 @@ header {
   display: flex;
   flex-direction: column;
   padding-top: 50px;
-}
-
-main {
-  
+  display: none;
 }
 
 h1 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 800;
+  font-family: 'Abril Fatface', cursive;
+  font-weight: 400;
   font-size: 5em;
   text-align: center;
   color: #1b3b46;
   margin: 15px 0 30px 0;
-}
-
-h2 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 600;
-  font-size: 2.5em;
-  color: #1b3b46;
-  margin: 0;
-}
-
-h3 {
-  font-family: 'Karla', sans-serif;
-  font-weight: 300;
-  font-size: 1.3em;
-  color: #1b3b46;
 }
 
 p, a {
@@ -54,20 +42,27 @@ p, a {
   line-height: 130%;
 }
 
-.images-layer {
-  z-index: 2;
+img {
+  position: absolute;
+  margin: 0 auto;
+  height: auto;
+  width: 100%;
+}
+
+.landscape {
+  height: 100%;
+  width: auto;
 }
 
 .polaroid {
-  height: 360px;
-  width: 300px;
   background-color: white;
-  position: absolute;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  height: 480px;
+  width: 400px;
+  padding-top: 1px;
 }
 
 .film {
-  height: 260px;
-  width: 260px;
   background-color: black;
   position: relative;
   margin: 20px 0 0 20px;
@@ -77,22 +72,112 @@ p, a {
   align-items: center;
 }
 
-img {
-  position: absolute;
-  margin: 0 auto;
+.polaroid .film {
+  height: 360px;
+  width: 360px;
 }
 
-/* footer */
-footer {
+/* main */
+main::-webkit-scrollbar {
+  width: 0 !important;
+  display: none;
+}
+
+main {
+  padding-bottom: 100px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100vh;
   width: 1200px;
-  bottom: 0;
-  display: flex;
-  justify-content: flex-end;
-  padding: 15px 0;
-  position: absolute;
+  scroll-snap-type: y mandatory;
 }
 
-footer a {
+section {
+  margin: 400px 0;
+  height: 100vh;
+  scroll-snap-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+article {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#intro {
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* sections */
+.stack {
+  padding: 0 50px;
+}
+
+.stack .polaroid:first-child {
+  transform: rotate(-1deg);
+}
+
+.stack .polaroid:nth-child(2), .stack .polaroid:nth-child(4) {
+  margin-top: -450px;
   margin-left: 30px;
+  transform: rotate(10deg);
+}
+
+.stack .polaroid:nth-child(3), .stack .polaroid:nth-child(5) {
+  margin-top: -470px;
+  margin-left: -10px;
+  transform: rotate(-5deg);
+}
+
+.stack:hover {
+  cursor: pointer;
+}
+
+.expanded {
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+}
+
+.expanded::-webkit-scrollbar {
+  width: 0 !important;
+  display: none;
+}
+
+.expanded .polaroid {
+  scroll-snap-align: center;
+}
+
+.date {
+  font-family: 'Abril Fatface', cursive;
+  font-weight: 400;
+  font-size: 12em;
+  -webkit-text-stroke: 1px rgb(0, 0, 0, 0.25);
+  text-align: right;
+  margin: 0;
+  color: transparent;
+}
+
+/* outro */
+#outro {
+  width: 1200px;
+  justify-content: center;
+  padding: 15px 0;
+}
+
+#outro a {
+  margin: 0 15px;
   text-decoration: none;
+}
+
+footer {
+  display: none;
 }
