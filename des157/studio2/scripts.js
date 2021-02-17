@@ -8,6 +8,7 @@
     stack.addEventListener('click', expand);
   });
 
+  ///// asynchronous functions that i couldn't get to work
   // var collapse = function(callback) {
   //   // valid callback
   //   if (!callback || typeof callback !== 'function') return;
@@ -46,8 +47,6 @@
   //
   // };
   //
-  //
-  //
   // collapse(function (stack) {
   //   // to do when polaroids are expanded
   //   stack.addEventListener('click', function() {
@@ -79,11 +78,6 @@
     const stackOffset = stack.getBoundingClientRect().left - (window.innerWidth - 1200)/2;
     const dateOffset = date.getBoundingClientRect().left - (window.innerWidth - 1200)/2;
 
-    // create new polaroids
-    // console.log(stack.getElementsByClassName('polaroid'));
-
-    // stack.getElementsByClassName('polaroid')[3].scrollIntoView();
-
     /// expand the stack
     for (let i = 0; i < polaroids.length; i++) {
       polaroids[i].style.marginTop = "0";
@@ -101,42 +95,46 @@
     date.style.marginLeft = `${dateOffset}px`;
     date.style.zIndex = -1;
 
-    // appendPolaroid("initial", stack);
+    // expand the stack on top and bottom to make it so there's always a centered polaroid
+    appendPolaroid("initial", stack);
+    // center the carousel on the middle polaroid
+    stack.getElementsByClassName('polaroid')[2].scrollIntoView();
 
-
-    /// infinite scroll
-    // var lastTop = stack.scrollTop;
+    /// infinite scroll function
     /*!
      * Run a callback function after scrolling has stopped
      * (c) 2017 Chris Ferdinandi, MIT License, https://gomakethings.com
      * @param  {Function} callback The function to run after scrolling
      */
-    // var scrollStop = function (callback) {
-    // 	// Make sure a valid callback was provided
-    // 	if (!callback || typeof callback !== 'function') return;
-    // 	// Setup scrolling variable
-    // 	var isScrolling;
-    // 	// Listen for scroll events
-    // 	stack.addEventListener('scroll', function (event) {
-    // 		// Clear our timeout throughout the scroll
-    // 		window.clearTimeout(isScrolling);
-    // 		// Set a timeout to run after scrolling ends
-    // 		isScrolling = setTimeout(function() {
-    // 			// Run the callback
-    // 			callback();
-    // 		}, 100);
-    // 	}, false);
-    // };
-    //
+    var scrollStop = function (callback) {
+    	// Make sure a valid callback was provided
+    	if (!callback || typeof callback !== 'function') return;
+    	// Setup scrolling variable
+    	var isScrolling;
+    	// Listen for scroll events
+    	stack.addEventListener('scroll', function (event) {
+    		// Clear our timeout throughout the scroll
+    		window.clearTimeout(isScrolling);
+    		// Set a timeout to run after scrolling ends
+    		isScrolling = setTimeout(function() {
+    			// Run the callback
+    			callback();
+    		}, 100);
+    	}, false);
+    };
+
+    // var lastTop = window.scrollTop;
     // scrollStop(function () {
-    //     // console.log('Scrolling has stopped.');
-    //     if (stack.scrollTop > lastTop) {
+    //     // when scrolling has stopped, detect if up scroll or down scroll
+    //     if (window.scrollTop > lastTop) {
     //       // down scroll
     //       // append to the bottom, and remove from the top
+    //       console.log("down");
     //       // appendPolaroid("bottom", stack);
     //     } else {
     //       // up scroll
     //       // append to the top, and remove from the bottom
+    //       console.log("up");
     //       // appendPolaroid("top", stack);
     //     }
     //     lastTop = stack.scrollTop;
@@ -159,79 +157,49 @@
     });  // click event listener
   };  // expand function
 
-  // function collapse () {
-  //   // this is a stack
-  //   var section = this.parentNode;
-  //   var polaroids = this.children;
-  //   var date = section.children[1];
-  //
-  //   for (var i = 0; i < polaroids.length; i++) {
-  //     polaroids[i].removeAttribute("style");
-  //   }
-  //   stack.classList.remove("expanded");
-  //   stack.removeAttribute("style");
-  //   date.removeAttribute("style");
-  //   section.removeAttribute("style");
-  //
-  //   // center the section on the screen again
-  //   section.scrollIntoView();
-  // };
+  function collapse () {
+    // this is a stack
+    var section = this.parentNode;
+    var polaroids = this.children;
+    var date = section.children[1];
 
-  // function appendPolaroid(direction, stack) {
-  //   var polaroids = stack.getElementsByClassName('polaroid');
-  //   var firstChild = polaroids[0];
-  //   var lastChild = polaroids[polaroids.length - 1];
-  //   var dupe;
-  //   var dupe2;
-  //
-  //   if ((direction == "bottom") || (direction == "top")) {
-  //     dupe = polaroids[2];
-  //   } else {
-  //     dupe = firstChild;
-  //     dupe2 = lastChild;
-  //   }
-  //   var dupeImg = dupe.getElementsByClassName('film')[0].getElementsByTagName('img')[0];
-  //
-  //   /// create new polaroid
-  //   // polaroid
-  //   var newPolaroid = document.createElement('div');
-  //   newPolaroid.classList.add('polaroid');
-  //
-  //   // film
-  //   var newFilm = document.createElement('div');
-  //   newFilm.classList.add('film');
-  //
-  //   // img
-  //   var newImg = document.createElement('img');
-  //   newImg.setAttribute("src", `${dupeImg.getAttribute('src')}`);
-  //   newImg.setAttribute("alt", `${dupeImg.getAttribute('alt')}`);
-  //   newImg.setAttribute("height", `360`);
-  //   newImg.setAttribute("width", `360`);
-  //
-  //   if (dupeImg.classList.contains('landscape')) {
-  //     newImg.classList.add('landscape');
-  //   }
-  //
-  //   newFilm.appendChild(newImg);
-  //   newPolaroid.appendChild(newFilm);
-  //
-  //   if (direction == "bottom") {
-  //     // scrolling down
-  //     // append to the bottom, remove from the top
-  //     stack.appendChild(newPolaroid);
-  //     stack.removeChild(firstChild);
-  //   } else if (direction == "top") {
-  //     // scrolling up
-  //     // append to the top, remove from the bottom
-  //     stack.insertBefore(dupe.cloneNode(), polaroids[0]);
-  //     stack.removeChild(lastChild);
-  //   } else {
-  //     // append on expand
-  //     stack.insertBefore(dupe2.cloneNode(), polaroids[0]);
-  //     stack.appendChild(dupe.cloneNode());
-  //   }
-  //
-  // };
+    for (var i = 0; i < polaroids.length; i++) {
+      polaroids[i].removeAttribute("style");
+    }
+    stack.classList.remove("expanded");
+    stack.removeAttribute("style");
+    date.removeAttribute("style");
+    section.removeAttribute("style");
+
+    // center the section on the screen again
+    section.scrollIntoView();
+  };
+
+  function appendPolaroid(direction, stack) {
+    var polaroids = stack.getElementsByClassName('polaroid');
+    var firstChild = polaroids[0];
+    var lastChild = polaroids[polaroids.length - 1];
+    var dupe;
+
+    if ((direction == "bottom") || (direction == "top")) {
+      dupe = polaroids[2];  // middle polaroid
+      if (direction == "bottom") {
+        // scrolling down
+        // append to the bottom, remove from the top
+        stack.appendChild(dupe.cloneNode(true));
+        stack.removeChild(firstChild);
+      } else {
+        // scrolling up
+        // append to the top, remove from the bottom
+        stack.insertBefore(dupe.cloneNode(true), polaroids[0]);
+        stack.removeChild(lastChild);
+      }
+    } else {
+      // append on expand
+      stack.insertBefore(lastChild.cloneNode(true), polaroids[0]);
+      stack.appendChild(firstChild.cloneNode(true));
+    }
+  };
 
 
 
