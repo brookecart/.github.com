@@ -36,15 +36,15 @@
     date.style.zIndex = -1;
 
     // expand the stack on top and bottom to make it so there's always a centered polaroid
-    // appendPolaroid("initial", stack);
+    appendPolaroid("initial", stack);
     // center the carousel on the middle polaroid
-    // stack.getElementsByClassName('polaroid')[2].scrollIntoView();
+    stack.getElementsByClassName('polaroid')[2].scrollIntoView();
 
     /// collapse stack again on click
     stack.addEventListener('click', function() {
       // remove the children added upon expansion before
-      // stack.removeChild(stack.getElementsByClassName('polaroid')[4]);
-      // stack.removeChild(stack.getElementsByClassName('polaroid')[0]);
+      stack.removeChild(stack.getElementsByClassName('polaroid')[4]);
+      stack.removeChild(stack.getElementsByClassName('polaroid')[0]);
 
       // remove all styling added in this onclick event
       for (let i = 0; i < polaroids.length; i++) {
