@@ -20,6 +20,11 @@
   startButton.addEventListener('click', getPlayers);
 
   function getPlayers() {
+    // when game restarts, score must be set to 0
+    gameData.score[0] = 0;
+    gameData.score[1] = 0;
+    gameData.index = 0;
+
     content.removeChild(document.querySelector('button'));
 
     //// player input interface
@@ -220,6 +225,7 @@
     const die2 = document.querySelector('.rightDie');
     const dice = document.querySelector('.dice');
     const whoseTurn = document.querySelector('.whoseTurn');
+    const options = document.querySelector('.options');
 
     // if starting a turn
     if (dice.classList.contains('hide')) {
@@ -237,15 +243,21 @@
     die1.setAttribute('src', `images/${gameData.roll1}.jpg`);
     die2.setAttribute('src', `images/${gameData.roll2}.jpg`);
 
+    // sound - dice landing on table
+    const diceSound = new Audio('media/diceRoll.mp3');
+    diceSound.play();
+
     // handle rolls
     if (gameData.rollSum === 2) {
       // two 1's
       gameData.score[gameData.index] = 0;
       updateScore();
+      options.classList.add('hide');
       whoseTurn.innerHTML = 'Snake eyes!';
       setTimeout(switchPlayers, 3000);
     } else if (gameData.roll1 === 1 || gameData.roll2 === 1) {
       // one of the rolls was a 1
+      options.classList.add('hide');
       whoseTurn.innerHTML = 'You rolled 1! Switching players...';
       setTimeout(switchPlayers, 3000);
     } else {
@@ -260,6 +272,11 @@
   function switchPlayers() {
     const dice = document.querySelector('.dice');
     const whoseTurn = document.querySelector('.whoseTurn');
+    const options = document.querySelector('.options');
+    // if switching from a roll with 1 in it, restore buttons
+    if (options.classList.contains('hide')) {
+      options.classList.remove('hide');
+    }
     // remove dice
     dice.classList.add('hide');
     // update index
@@ -296,21 +313,23 @@
       const center = document.querySelector('#center');
       let subtitle = document.querySelector('.whoseTurn').cloneNode(true);
       let restartButton = document.querySelector('.options #rollButton').cloneNode(true);
-      // remove game modules
-      // center.removeChild(document.querySelector('.dice'));  // dice
-      // center.removeChild(document.querySelector('.whoseTurn')); // subtitle
-      // center.removeChild(document.querySelector('.options'));  // buttons
 
+      // sound - party horn
+      const winSound = new Audio('media/win.mp3');
+      winSound.play();
+
+      // clear center game interface
       center.innerHTML = '';
 
       // winner message
       subtitle.innerHTML = `${gameData.players[gameData.index]} wins!`;
+      subtitle.classList.remove('whoseTurn');
+      subtitle.classList.add('whoWins');
 
       // restart button
       restartButton.id = 'restart';
       restartButton.innerHTML = 'restart';
 
-      center.appendChild(pig);
       center.appendChild(subtitle);
       center.appendChild(restartButton);
 
@@ -340,6 +359,9 @@
     content.appendChild(pig);
     content.appendChild(startButton);
     content.classList.remove('activeGame');
+
+    startButton = document.querySelector('#startButton');
+    startButton.addEventListener('click', getPlayers);
   }
 
 })();
