@@ -5,60 +5,80 @@
   const stacks = document.querySelectorAll('section .stack');
 
   stacks.forEach(function (stack) {
-    stack.addEventListener('click', expand);
+    stack.addEventListener('click', function() {
+      expandOrCollapse(stack);
+    });
+    // if (stack.classList.contains('collapsed')) {
+    //   stack.addEventListener('click', expand);
+    // }
+    // if (stack.classList.contains('expandedStack')) {
+    //   stack.addEventListener('click', collapse);
+    // }
   });
 
-  function expand () {
-    // need to redefine the section because it goes out of scope here
-    const section = this.parentNode;
-    const stack = this;
+  function expandOrCollapse(stack) {
+    if (stack.classList.contains('collapsed')) {
+      expand(stack);
+    }
+    if (stack.classList.contains('expandedStack')) {
+      collapse(stack);
+    }
+  }
+
+  function expand(stack) {
+    const section = stack.parentNode;
+    // const stack = this;
     const polaroids = document.querySelectorAll(`#${section.getAttribute('id')} .stack .polaroid`);
     const date = document.querySelector(`#${section.getAttribute('id')} article`);
     // used to position the stack/date when the stack is expanded snapscrolls
     const stackOffset = stack.getBoundingClientRect().left - (window.innerWidth - 1200)/2;
     const dateOffset = date.getBoundingClientRect().left - (window.innerWidth - 1200)/2;
 
-    /// expand the stack
-    for (let i = 0; i < polaroids.length; i++) {
-      polaroids[i].style.marginTop = "0";
-    }
-
-    if (!stack.className.includes("expanded")) {
-      stack.classList.add("expanded");
-    }
+    // expand the stack
+    console.log('if collapsed');
+    stack.classList.remove('collapsed');
+    stack.classList.add('expandedStack');
 
     // reposition stack and date to accommodate scroll snap on the stack
-    section.style.justifyContent = "flex-start";
-    stack.style.paddingRight = "100%";
+    section.classList.add('expandedSection');
+    date.classList.add('expandedDate');
+    // dynamically generated styles
     stack.style.paddingLeft = `${stackOffset + 50}px`;
-    date.style.position = "absolute";
     date.style.marginLeft = `${dateOffset}px`;
-    date.style.zIndex = -1;
 
-    // expand the stack on top and bottom to make it so there's always a centered polaroid
-    appendPolaroid("initial", stack);
-    // center the carousel on the middle polaroid
-    stack.getElementsByClassName('polaroid')[2].scrollIntoView();
+    // stuff i'm not sure about
+    // // expand the stack on top and bottom to make it so there's always a centered polaroid
+    // appendPolaroid("initial", stack);
+    // // center the carousel on the middle polaroid
+    // stack.getElementsByClassName('polaroid')[2].scrollIntoView();
+  }
 
-    /// collapse stack again on click
-    stack.addEventListener('click', function() {
-      // remove the children added upon expansion before
-      stack.removeChild(stack.getElementsByClassName('polaroid')[4]);
-      stack.removeChild(stack.getElementsByClassName('polaroid')[0]);
+  function collapse(stack) {
+    const section = stack.parentNode;
+    //const stack = this;
+    const date = document.querySelector(`#${section.getAttribute('id')} article`);
 
-      // remove all styling added in this onclick event
-      for (let i = 0; i < polaroids.length; i++) {
-        polaroids[i].removeAttribute("style");
-      }
-      stack.classList.remove("expanded");
-      stack.removeAttribute("style");
-      date.removeAttribute("style");
-      section.removeAttribute("style");
+    console.log('if expanded');
+    stack.classList.remove('expandedStack');
+    stack.classList.add('collapsed');
 
-      // center the section on the screen again
-      section.scrollIntoView();
-    });  // click event listener
-  };  // expand function
+    // removing styling added in expand function
+    section.classList.remove('expandedSection');
+    date.classList.remove('expandedDate');
+    stack.removeAttribute('style');
+    date.removeAttribute('style');
+
+    // center the section on the screen again
+    section.scrollIntoView();
+
+    // stuff i'm not sure about for the infinite scroll
+    // // remove the children added upon expansion before
+    // stack.removeChild(stack.getElementsByClassName('polaroid')[4]);
+    // stack.removeChild(stack.getElementsByClassName('polaroid')[0]);
+  }
+
+
+
 
   //// "bottom" and "top" inputs would work with the infinite scroll function (see comments below)
   //// would dynamically add/remove polaroids from the stack to give the illusion of infinite scroll

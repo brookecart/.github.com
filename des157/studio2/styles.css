@@ -140,20 +140,23 @@ article {
   cursor: pointer;
 }
 
-.expanded {
+.expandedStack {
   height: 100vh;
   overflow-y: scroll;
   overflow-x: hidden;
   scroll-snap-type: y mandatory;
+  /* this applies to a stack, right? */
+  padding-right: 100%;
 }
 
-.expanded::-webkit-scrollbar {
+.expandedStack::-webkit-scrollbar {
   width: 0 !important;
   display: none;
 }
 
-.expanded .polaroid {
+.expandedStack .polaroid {
   scroll-snap-align: center;
+  margin-top: 0 !important;
 }
 
 .date {
@@ -164,6 +167,15 @@ article {
   text-align: right;
   margin: 0;
   color: transparent;
+}
+
+.expandedDate {
+  position: absolute;
+  z-index: -1;
+}
+
+.expandedSection {
+  justify-content: flex-start;
 }
 
 /* outro */
