@@ -2,19 +2,76 @@
   "use strict";
   console.log("reading js");
 
+  // mouse responsive animation for title
+  const intro = document.querySelector('#intro');
+  const title = intro.querySelector('h1');
+
+  intro.addEventListener('mousemove', parallax);
+  function parallax(event) {
+    const speed = title.getAttribute('data-speed');
+    // get original background position value and add/subtract from it
+    // background-position: 50% 47%;
+    const x = 50 - event.pageX*speed*3;
+    const y = 47 - event.pageY*speed;
+    title.style.backgroundPosition = `${x}% ${y}%`;
+  }
+
+  // image slideshow effect for title
+  const photos = [
+    'la/1.jpg',
+    'san-francisco/1.jpg',
+    'tennessee/2.jpg',
+    'la/3.jpeg'
+  ];
+  let currentPhoto = 0;
+  setInterval(function() {
+    currentPhoto++;
+    if (currentPhoto > photos.length-1) {
+      currentPhoto = 0;
+    }
+    title.style.backgroundImage = `url(images/${photos[currentPhoto]})`;
+  }, 5000);
+
+  // function nextPhoto() {
+  //   currentPhoto++;
+  //   if (currentPhoto > photos.length-1) {
+  //     currentPhoto = 0;
+  //   }
+  //   title.style.backgroundImg = `url(images/${photos[currentPhoto]})`;
+  // }
+
+  // all stacks
   const stacks = document.querySelectorAll('section .stack');
 
+  // hover for stac
+
+
+  // expand/collapse for stacks
   stacks.forEach(function (stack) {
     stack.addEventListener('click', function() {
       expandOrCollapse(stack);
     });
-    // if (stack.classList.contains('collapsed')) {
-    //   stack.addEventListener('click', expand);
-    // }
-    // if (stack.classList.contains('expandedStack')) {
-    //   stack.addEventListener('click', collapse);
-    // }
+    stack.addEventListener('mouseover', function() {
+      pushApart(stack);
+    });
+    stack.addEventListener('mouseout', function() {
+      pullTogether(stack);
+    });
   });
+
+  function pushApart(stack) {
+    const polaroids = stack.querySelectorAll('.polaroid');
+    for (let i = 0; i < polaroids.length; i++) {
+      polaroids[i].classList.add(`polaroidHover${i+1}`);
+    }
+  }
+
+  function pullTogether(stack) {
+    const polaroids = stack.querySelectorAll('.polaroid');
+    for (let i = 0; i < polaroids.length; i++) {
+      polaroids[i].classList.remove(`polaroidHover${i+1}`);
+    }
+  }
 
   function expandOrCollapse(stack) {
     if (stack.classList.contains('collapsed')) {
@@ -26,7 +83,6 @@
 
   function expand(stack) {
     const section = stack.parentNode;
-    // const stack = this;
     const polaroids = document.querySelectorAll(`#${section.getAttribute('id')} .stack .polaroid`);
     const date = document.querySelector(`#${section.getAttribute('id')} article`);
     // used to position the stack/date when the stack is expanded snapscrolls
