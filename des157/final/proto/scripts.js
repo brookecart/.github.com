@@ -16,35 +16,23 @@
     title.style.backgroundPosition = `${x}% ${y}%`;
   }
 
-  // image slideshow effect for title
   const photos = [
-    'la/1.jpg',
-    'san-francisco/1.jpg',
-    'tennessee/2.jpg',
-    'la/3.jpeg'
+    '1.jpg',
+    '4.png',
+    '5.png'
   ];
+
   let currentPhoto = 0;
   setInterval(function() {
     currentPhoto++;
     if (currentPhoto > photos.length-1) {
       currentPhoto = 0;
     }
-    title.style.backgroundImage = `url(images/${photos[currentPhoto]})`;
+    title.style.backgroundImage = `url(images/cover/${photos[currentPhoto]})`;
   }, 5000);
-
-  // function nextPhoto() {
-  //   currentPhoto++;
-  //   if (currentPhoto > photos.length-1) {
-  //     currentPhoto = 0;
-  //   }
-  //   title.style.backgroundImg = `url(images/${photos[currentPhoto]})`;
-  // }
 
   // all stacks
   const stacks = document.querySelectorAll('section .stack');
-
-  // hover for stac
-
 
   // expand/collapse for stacks
   stacks.forEach(function (stack) {
@@ -52,7 +40,9 @@
       expandOrCollapse(stack);
     });
     stack.addEventListener('mouseover', function() {
-      pushApart(stack);
+      if (!stack.classList.contains('expandedStack')) {
+        pushApart(stack);
+      }
     });
     stack.addEventListener('mouseout', function() {
       pullTogether(stack);
@@ -90,7 +80,6 @@
     const dateOffset = date.getBoundingClientRect().left - (window.innerWidth - 1200)/2;
 
     // expand the stack
-    console.log('if collapsed');
     stack.classList.remove('collapsed');
     stack.classList.add('expandedStack');
 
@@ -113,7 +102,6 @@
     //const stack = this;
     const date = document.querySelector(`#${section.getAttribute('id')} article`);
 
-    console.log('if expanded');
     stack.classList.remove('expandedStack');
     stack.classList.add('collapsed');
 
@@ -132,6 +120,15 @@
     // stack.removeChild(stack.getElementsByClassName('polaroid')[0]);
   }
 
+  // captions on hover
+  // const captions = document.querySelector('section .expandedStack .polaroid');
+  // captions.forEach(function (caption) {
+  //   caption.addEventListener('mouseover', function() {
+  //     caption.classList.add('move');
+  //
+  //
+  //   });
+  // });
 
 
 
