@@ -1,6 +1,7 @@
 (function() {
   "use strict";
   console.log("reading js");
+  alert('Hi! Please complete the following:\n1. Interact with the landing area\n2. Scroll through each section\n3. Explore a stack of polaroids');
 
   // mouse responsive animation for title
   const intro = document.querySelector('#intro');
