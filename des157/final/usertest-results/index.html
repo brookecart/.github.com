@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Learning Journal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <header>
+      <div class="graphic">
+        <div class="shapes-row">
+          <div class="square bottom-left-radius green"></div>
+          <div class="square top-right-radius green"></div>
+          <div class="square top-left-radius dark-blue"></div>
+          <div class="square bottom-right-radius dark-blue"></div>
+        </div>
+      </div>
+      <h1>Learning Journal</h1>
+      <div class="graphic">
+        <div class="shapes-row">
+          <div class="square top-left-radius green"></div>
+          <div class="square bottom-right-radius green"></div>
+          <div class="square bottom-left-radius dark-blue"></div>
+          <div class="square top-right-radius dark-blue"></div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+
+      <article>
+        <h2>Landing Area Title</h2>
+        <p>
+          It became clear through user testing that the effect on mouse move I
+          had implemented to the landing area of my site was too subtle. Certain
+           users were even confused by the effect. They weren’t sure if it was
+           their movement that was causing it or if it was moving on its own.
+           Others didn’t notice it at all until I asked them to give me feedback
+            on it. However I think it succeeded conceptually; when I asked for
+            feedback, users had positive reactions. I received comments that it
+            was a pleasant effect and added interest to the page. It became
+            clear after testing that I would have to make this more obvious to
+            users on first glance. I will implement this by increasing the speed
+             of the effect.
+        </p>
+      </article>
+
+      <article>
+        <h2>Color Scheme</h2>
+        <p>
+          The second question I asked users in our follow up session was how
+          they received the colors of the interface. All users reacted
+          positively to the color scheme. They stated that the simplicity was
+          appropriate for the overall theme, and it allowed the page to flow
+          well. One user suggested that it might be improved with a “theme” on
+          each section by pulling out a mutual, unifying color from the
+          photographs and giving that section’s background the same color. I
+          thought it was an interesting concept. I had also received a comment
+          like that in one of my other feedback sessions, that as the viewport
+          moved down the page, if I might make the background move down a
+          gradient as well. If I were to implement this, off the top of my head
+          I think I could do it in Javascript. I could basically assign color
+          stops on a gradient at every increment of the viewport height.
+        </p>
+      </article>
+
+      <article>
+        <h2>Infinite Scrolling Bug</h2>
+        <p>
+          I had a bug in my code that created a lot of negative reactions to my
+          project. I thought I had resolved this bug before the session, so I
+          was surprised and disappointed to see it persist in the user tests.
+          Essentially, when a user opens up a photo stack and scrolls, it can
+          have buggy behavior where when the user scrolls, a bunch of different
+          polaroids flash across the screen. My users responded in various
+          ways, but all were very confused, and one was really surprised when
+          it glitched. I think they wondered at first if it was supposed to do
+          that or not, because only when I mentioned that was a bug, did they
+          have a moment of realization. I’m going to have to continue to debug
+          this and see where exactly the issue lies, but my first thought is
+          that it has something to do with the condition I have set for the
+          script to detect if the user has scrolled.
+        </p>
+      </article>
+
+    </main>
+
+    <footer>
+      <a href="mailto:&#112;&#108;&#101;&#097;&#115;&#101;&#064;&#100;&#111;&#110;&#116;&#046;&#099;&#111;&#109;">Email</a>
+      <a href="https://validator.w3.org/check?uri=referer">Valid HTML 5</a>
+      <a href="https://jigsaw.w3.org/css-validator/check/referer">Valid CSS</a>
+    </footer>
+  </body>
+</html>

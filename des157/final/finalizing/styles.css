@@ -127,7 +127,10 @@ article {
 }
 
 .caption {
+  font-family: 'Caveat', cursive;
+  font-weight: 400;
   position: absolute;
+  text-align: right;
   transform: rotate(-90deg);
   margin-left: -200px;
   margin-top: 200px;

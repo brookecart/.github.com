@@ -42,6 +42,7 @@
       expandOrCollapse(stack);
     });
 
+
     // hover effect
     stack.addEventListener('mouseover', function() {
       // don't take effect on expanded stacks
@@ -49,6 +50,7 @@
         pushApart(stack);
       }
     });
+
 
     // unhover effect
     stack.addEventListener('mouseout', function() {
@@ -59,6 +61,7 @@
 
   });  // forEach
 
+
   // on hover effect
   function pushApart(stack) {
     const polaroids = stack.querySelectorAll('.polaroid');
@@ -68,6 +71,7 @@
       polaroids[i].classList.add(`hover${i+1}`);
     }
   }  // pushApart
+
 
   // off hover effect
   function pullTogether(stack) {
@@ -81,12 +85,12 @@
     }
   }  // pullTogether
 
+
   function expandOrCollapse(stack) {
     if (stack.classList.contains('collapsed')) {
       // handle the hover classes that stick on expand
       pullTogether(stack);
       expand(stack);
-      // captions(stack);
       // initially adds the extra polaroids on top and bottom
       appendPolaroid('expand', stack);
       // centers the middle polaroid on the screen
@@ -137,7 +141,10 @@
           }
 
           lastTop = stack.scrollTop;
-      });
+      });  // scroll stop listener
+
+      // captions on hover
+      captions(stack);
 
     } else if (stack.classList.contains('expandedStack')) {
       // removes the extra 2 polaroids from top and bottom
@@ -145,6 +152,7 @@
       collapse(stack);
     }
   }  // expandOrCollapse
+
 
   function expand(stack) {
     const section = stack.parentNode;
@@ -165,6 +173,7 @@
     stack.style.paddingLeft = `${stackOffset + 50}px`;
     date.style.marginLeft = `${dateOffset}px`;
   }  // expand
+
 
   function collapse(stack) {
     const section = stack.parentNode;
@@ -192,52 +201,53 @@
     section.scrollIntoView();
   }  // collapse
 
-  // function captions(stack) {
-  //   const polaroids = stack.querySelectorAll('.expandedStack .polaroid');
-  //   polaroids.forEach(function (polaroid) {
-  //     let caption = document.createElement('p');
-  //     caption.innerHTML = ``${polaroid.querySelector('.film img').getAttribute('alt')}``;  // FIX THIS ABSOLUTE BULLSHIT
-  //     caption.className = 'caption';
-  //     const location = polaroid.getBoundingClientRect();
-  //     const thisMargin = parseInt((window.getComputedStyle(polaroid).getPropertyValue('margin-left')).replace('px', ''));
-  //
-  //     polaroid.addEventListener('mouseover', function(event) {
-  //       if (event.target.parentNode == event.relatedTarget) {
-  //         if (polaroid.querySelector('.caption') == null) {
-  //           polaroid.insertBefore(caption, polaroid.querySelector('.film'));
-  //         }
-  //         // move polaroid over
-  //         // console.log(thisMargin);
-  //         // polaroid.style.marginLeft = `${thisMargin + 50}px`;
-  //         // add caption
-  //       }
-  //     });
-  //
-  //     polaroid.addEventListener('mouseout', function(event) {
-  //       if ((event.target.parentNode == event.relatedTarget) || nextPolaroid(event.target, event.relatedTarget)) {
-  //           if (polaroid.querySelector('.caption') != null) {
-  //             polaroid.removeChild(polaroid.querySelector('.caption'));
-  //         }
-  //         // move polaroid back
-  //         // polaroid.removeAttribute('style');
-  //       }
-  //     });
-  //   });
-  // }
 
-    // function nextPolaroid(target, relatedTarget) {
-    //   let img1 = target.querySelector('.film img');
-    //   let img2 = relatedTarget.querySelector('.film img');
-    //   if (img1)
-    //   if (img1 != null && img2 != null) {
-    //     img1 = img1.getAttribute('src');
-    //   }
-    //   const img2 = relatedTarget.querySelector('.film img').getAttribute('src');
-    //   if ((img1 != null) && (img2 != null) && (img1 != img2)) {
-    //     return true;
-    //   }
-    //   return false;
-    // }
+  function captions(stack) {
+    const polaroids = stack.querySelectorAll('.expandedStack .polaroid');
+    polaroids.forEach(function (polaroid) {
+      let caption = document.createElement('p');
+      caption.innerHTML = `${polaroid.querySelector('.film img').getAttribute('alt')}`;
+      caption.className = 'caption';
+
+      polaroid.addEventListener('mouseover', function(event) {
+        if (event.target.parentNode == event.relatedTarget) {
+          if (polaroid.querySelector('.caption') == null) {
+            polaroid.insertBefore(caption, polaroid.querySelector('.film'));
+            caption.style.marginLeft = `${-(document.querySelector(`${stack} .polaroid .caption`).offsetWidth/2)-30}px`;
+          }
+          // move polaroid over
+          // console.log(thisMargin);
+          // polaroid.style.marginLeft = `${thisMargin + 50}px`;
+          // add caption
+        }
+      });
+
+      polaroid.addEventListener('mouseout', function(event) {
+        if ((event.target.parentNode == event.relatedTarget)) {  // or next polaroid here
+            if (polaroid.querySelector('.caption') != null) {
+              polaroid.removeChild(polaroid.querySelector('.caption'));
+          }
+          // move polaroid back
+          // polaroid.removeAttribute('style');
+        }
+      });
+    });
+  }
+
+// nextPolaroid(event.target, event.relatedTarget)
+//   function nextPolaroid(target, relatedTarget) {
+//     let img1 = target.querySelector('.film img');
+//     let img2 = relatedTarget.querySelector('.film img');
+//     if (img1)
+//     if (img1 != null && img2 != null) {
+//       img1 = img1.getAttribute('src');
+//     }
+//     const img2 = relatedTarget.querySelector('.film img').getAttribute('src');
+//     if ((img1 != null) && (img2 != null) && (img1 != img2)) {
+//       return true;
+//     }
+//     return false;
+//   }
 
 
 
@@ -277,27 +287,28 @@
     }
   }  // appendPolaroid
 
-function unappendOnCollapse(stack) {
-  // at this point, will have 5 polaroids
-  const polaroids = stack.querySelectorAll('.polaroid');
 
-  // the polaroid in view (at index 0) is the last in the stack, then add the two above it
-  for (let i = 3; i < polaroids.length; i++) {
-    stack.removeChild(polaroids[i]);
-  }
+  function unappendOnCollapse(stack) {
+    // at this point, will have 5 polaroids
+    const polaroids = stack.querySelectorAll('.polaroid');
 
-  // reassign class names to the polaroids
-  for (let i = 0; i < polaroids.length; i++) {
-    polaroids[i].className = 'polaroid';
-    if (i == 0) {
-      polaroids[i].classList.add('one');
-    } else if (i == 1) {
-      polaroids[i].classList.add('two');
-    } else {
-      polaroids[i].classList.add('three');
+    // the polaroid in view (at index 0) is the last in the stack, then add the two above it
+    for (let i = 3; i < polaroids.length; i++) {
+      stack.removeChild(polaroids[i]);
     }
-    polaroids[i].classList.add(`inactive${i+1}`);
-  }
-}  // unappendOnCollapse
+
+    // reassign class names to the polaroids
+    for (let i = 0; i < polaroids.length; i++) {
+      polaroids[i].className = 'polaroid';
+      if (i == 0) {
+        polaroids[i].classList.add('one');
+      } else if (i == 1) {
+        polaroids[i].classList.add('two');
+      } else {
+        polaroids[i].classList.add('three');
+      }
+      polaroids[i].classList.add(`inactive${i+1}`);
+    }
+  }  // unappendOnCollapse
 
 }());

@@ -105,7 +105,7 @@
             window.clearTimeout(isScrolling);
             isScrolling = setTimeout(function() {
               callback();
-            }, 200);  // timeout before calling the callback
+            }, 500);  // timeout before calling the callback
         }, false);  // event listener
       };  // scrollStop
 
@@ -138,7 +138,9 @@
           }
 
           lastTop = stack.scrollTop;
-      });
+      });  // scroll stop listener
+
+      // listener for hovering over
 
     } else if (stack.classList.contains('expandedStack')) {
       // removes the extra 2 polaroids from top and bottom
